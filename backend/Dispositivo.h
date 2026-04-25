@@ -33,11 +33,18 @@ public:
     //Sem isso, ao fazer delete em um ponteiro Dispositivo*,
     // o destrutor da classe filha NUNCA seria chamado
     virtual ~Dispositivo() = default;
-
+    
+    // Métodos virtuais puros: definem a interface que todas as classes filhas devem seguir
     //obrigam cada classe filha a implementar
     virtual void        ligar()          = 0;
     virtual void        desligar()       = 0;
     virtual void        exibirStatus()   const = 0;
     virtual std::string paraJSON()       const = 0;
- 
+
+    // Getters públicos para acesso somente leitura dos atributos privados
+    // Mantêm o encapsulamento: ninguém pode modificar diretamente os valores
+    // Essenciais  para o servidor acessar dados e gerar JSON
+    int getId() const { return id; }
+    bool isLigado() const { return ligado; }
+    std::string getNome() const { return nome; }
 };
