@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Lightbulb, Snowflake, Thermometer, Drop, Wind, SquaresFour, ShareNetwork, Pulse, Stack, LockKey, TreeStructure, Shuffle, Cpu } from "@phosphor-icons/react";
 
 // 1. COMPONENTES DE APOIO
@@ -77,12 +77,51 @@ function FeatureCard({ title, description, icon: Icon, colorClass = "text-cyan-5
 // 2. COMPONENTE PRINCIPAL
 
 export default function App() {
-  // Gerenciamento de estado dos dispositivos
-  const [devices, setDevices] = useState([
-    { id: 1, name: "Luminária Principal", room: "Sala de Estar", power: 12, status: true, icon: Lightbulb },
-    { id: 2, name: "Abajur", room: "Quarto", power: 12, status: false, icon: Lightbulb },
-    { id: 3, name: "Ar Condicionado", room: "Escritório", power: 150, status: true, icon: Snowflake },
-  ]);
+  // Estado que armazena a lista de dispositivos sincronizada com o backend
+  const [devices, setDevices] = useState([]);
+
+  // Hook para carregar os dados iniciais do servidor C++
+  useEffect(() => {
+    const fetchStatus = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/api/status');
+        const data = await response.json();
+        
+        // Mapeamento dos dados brutos para as propriedades visuais do frontend
+        const mapped = data.dispositivos.map(dev => ({
+          ...dev,
+          status: dev.ligado,
+          // Atribuição de consumo e ícone baseada na especialização do objeto
+          power: dev.tipo === "luz" ? 12 : (dev.tipo === "ar_condicionado" ? 150 : 5),
+          icon: dev.tipo === "luz" ? Lightbulb : (dev.tipo === "ar_condicionado" ? Snowflake : (dev.tipo === "camera" ? LockKey : Cpu)),
+          room: "CIn - UFPE"
+        }));
+        setDevices(mapped);
+      } catch (err) {
+        console.error("Erro na comunicação com o servidor C++:", err);
+      }
+    };
+
+    fetchStatus();
+  }, []);
+
+  // Função para enviar comando de alternância de estado via requisição POST
+  const toggleDevice = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/dispositivo/${id}/toggle`, {
+        method: 'POST'
+      });
+      
+      if (response.ok) {
+        // Atualização otimista do estado local após confirmação do backend
+        setDevices(prev => prev.map(dev => 
+          dev.id === id ? { ...dev, status: !dev.status } : dev
+        ));
+      }
+    } catch (err) {
+      console.error("Falha ao processar comando toggle:", err);
+    }
+  };
 
   // Dados das Funcionalidades
   const features = [
@@ -95,13 +134,6 @@ export default function App() {
     { id: 7, title: "Polimorfismo", desc: "O hub central opera sobre ponteiros genéricos para a classe base, invocando métodos específicos de cada dispositivo em tempo de execução (dynamic binding). Isso permite tratar hardware heterogêneo de forma uniforme.", icon: Shuffle, color: "text-orange-400" },
     { id: 8, title: "Gestão de Memória", desc: "Destrutores virtuais na classe base garantem desalocação correta ao remover dispositivos do sistema. O contêiner central assume responsabilidade pelo ciclo de vida dos objetos alocados dinamicamente.", icon: Cpu, color: "text-orange-400" },
   ];
-
-  // Função para alternar status
-  const toggleDevice = (id) => {
-    setDevices(prev => prev.map(dev => 
-      dev.id === id ? { ...dev, status: !dev.status } : dev
-    ));
-  };
 
   // Cálculos automáticos baseados no estado
   const activeCount = devices.filter(d => d.status).length;
@@ -184,7 +216,6 @@ export default function App() {
               <FeatureCard 
                 key={feature.id}
                 title={feature.title}
-                desc={feature.desc}
                 icon={feature.icon}
                 colorClass={feature.color}
                 description={feature.desc}

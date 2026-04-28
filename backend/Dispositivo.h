@@ -1,3 +1,6 @@
+#ifndef DISPOSITIVO_H
+#define DISPOSITIVO_H
+
 #include <string>
 #include <iostream>
 
@@ -48,3 +51,5 @@ public:
     bool isLigado() const { return ligado; }
     std::string getNome() const { return nome; }
 };
+
+#endif

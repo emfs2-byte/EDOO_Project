@@ -1,3 +1,6 @@
+#include <winsock2.h>
+#include <ws2tcpip.h>
+
 #include <iostream>
 #include <memory>
 #include "httplib.h"              // Biblioteca para o Servidor HTTP
