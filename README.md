@@ -2,7 +2,7 @@
 
 O **SmartHome.cin** é um simulador de ecossistema residencial inteligente desenvolvido como projeto para a disciplina de **Estrutura de Dados e Orientação a Objetos (EDOO)** no Centro de Informática (CIn - UFPE).
 
-O projeto demonstra como os conceitos de Programação Orientada a Objetos (POO) podem ser aplicados para resolver problemas reais de interoperabilidade entre dispositivos IoT (Internet of Things) de diferentes fabricantes e funções, utilizando um Smart Hub centralizado.
+O projeto demonstra como os conceitos de Programação Orientada a Objetos (POO) podem ser aplicados para resolver problemas reais de interoperabilidade entre dispositivos IoT (Internet of Things) de diferentes fabricantes e funções, utilizando um Smart Hub centralizado
 
 ---
 
