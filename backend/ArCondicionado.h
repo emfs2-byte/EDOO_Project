@@ -18,7 +18,7 @@ public:
     void setTemperatura(int t) {
         if (t >= 16 && t <= 30) {
             temperatura = t;
-            std::cout << "[AC] Temperatura de " << getNome() << " ajustada para " << t << "°C" << std::endl;
+            std::cout << "[AC] Temperatura de " << getNome() << " ajustada para " << t << "Graus" << std::endl;
         } else {
             // Lançamos um erro se o valor for inválido
             std::cout << "[ERRO] Temperatura " << t << " invalida!" << std::endl;

@@ -33,6 +33,16 @@ public:
         return false; // Não achou o ID
     }
 
+    // Obtém um ponteiro para um dispositivo pelo ID (para downcasting)
+    Dispositivo* obterDispositivoPorId(int id) {
+        for (size_t i = 0; i < dispositivos.size(); ++i) {
+            if (dispositivos[i]->getId() == id) {
+                return dispositivos[i].get(); // Retorna ponteiro comum (não-possuidor)
+            }
+        }
+        return nullptr; // Não encontrou
+    }
+
     // GERA O JSON PARA O FRONTEND: Varre a memória e cria o array de objetos
     std::string gerarRelatorioJSON() {
         std::string json = "[";
