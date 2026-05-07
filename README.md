@@ -62,7 +62,7 @@ Uso de C++ moderno com `std::unique_ptr` e destrutores virtuais para garantir qu
 Navegue até a pasta do servidor e compile os arquivos:
 ```bash
 # Compilação via G++ (Linkando a biblioteca de sockets do Windows)
-g++ main.cpp GerenciadorMemoria.cpp -o servidor -lws2_32
+g++ main.cpp -o servidor -lws2_32
 
 # Execute o servidor
 ./servidor
