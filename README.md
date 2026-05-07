@@ -4,7 +4,7 @@ O **SmartHome.cin** é um simulador de ecossistema residencial inteligente desen
 
 O projeto demonstra como os conceitos de Programação Orientada a Objetos (POO) podem ser aplicados para resolver problemas reais de interoperabilidade entre dispositivos IoT (Internet of Things) de diferentes fabricantes e funções, utilizando um Smart Hub centralizado.
 
-------
+---
 
 ## 🚀 Sobre o Projeto
 
@@ -18,7 +18,7 @@ O coração do simulador é um **Smart Hub** centralizado escrito em **C++**. Es
     - Controle de on/off para iluminação.
 - **Feedback Visual:** Terminal do backend loga cada ação processada via Polimorfismo, exibindo mensagens personalizadas para cada tipo de hardware.
 
------
+---
 
 ## 🏗️ Arquitetura e Conceitos de POO
 
@@ -36,7 +36,7 @@ O Smart Hub armazena ponteiros genéricos para a classe base. Quando o comando "
 ### 4. Gestão de Memória
 Uso de C++ moderno com `std::unique_ptr` e destrutores virtuais para garantir que toda a memória alocada dinamicamente seja limpa corretamente, evitando vazamentos de memória (*memory leaks*).
 
------
+---
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -50,7 +50,7 @@ Uso de C++ moderno com `std::unique_ptr` e destrutores virtuais para garantir qu
 - **Tailwind CSS:** Para estilização responsiva e interface *dark mode*.
 - **Phosphor Icons:** Biblioteca de ícones vetoriais modernos.
 
------
+---
 
 ## 💻 Como Compilar e Rodar
 
